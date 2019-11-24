@@ -1,0 +1,115 @@
+
+let start = document.getElementById("start");
+start.addEventListener("click", startQuiz);
+
+let TIMER;
+
+function startQuiz(){
+    start.style.display = "none";
+    counterRender();
+    TIMER = setInterval(counterRender,1000);
+    progressRender();
+    questionRender();
+    startQuiz.style.display = "block";
+}
+
+
+//Operator
+
+//if(Y == "one"){
+   // X = 1;
+//}else if(Y == "zero"){
+   // X = 0;
+//} else{
+   //X = 2;
+//}
+
+//X = ( Y == "one" ) ? 1 : (Y == "zero") ? 0 : 2;
+
+//Score Render
+
+function scoreRender(){
+   scoreRender.style.display = "block";
+    let scorePerCent = Math.round(100 * score / questions.length);
+    let message = (scorePerCent >= 100) ? "You Know Your Stuff" :
+                  (scorePerCent >= 50) ? "Yikes" :
+                  (scorePerCent >= 0) ? "Keep Your Head Up Kiddo";
+    scoreContainer.innerHTML = document.getElementsByName("message , + , <p>" + scorePerCent + "%</p>");
+}
+
+array = [a,b,c,d]
+
+//Running Questions 
+let lastQuestionIndex = questions.length -1; 
+let runningQuestionIndex = 0;
+
+function renderQuestion({ runningQuestionIndex = 0
+    let q = questions[runningQuestionIndex] //renderQuestion()
+    question.innerHTML = "<p>" + q.question+ "</p>"; //runningQuestionIndex++
+    choiceA.innerHTML = q.choiceA;                 //renderQuestion()
+    choiceB.innerHTML = q.choiceB;
+    choiceC.innerHTML = q.choiceC;
+    choiceD.innerHTML = q.choiceD;
+}
+
+//Progress Render Bar
+
+function progressRender(){
+    for(let qindex = 0; qIndex <= lastQuestionIndex; qIndex++){
+       progressRender.innerHTML += "<div class='prog' id=" + qIndex + "></div>; 
+    }
+}
+
+function answerIsCorrect(){
+    document.getElementById(runningQuestionIndex).style.backgroundColor = "green"
+}
+
+function answerIsWrong(){
+    document.getElementById(runningQuestionIndex).style.backgroundColor = "red";
+}
+
+//Counter Render
+
+let questionTime = 15;
+let gaudeWidth = 150px;
+let count = 0;
+let guageProgressUnit = guageWidth/questionTime;
+
+function counterRender(){
+let TIMER = setInterval(counterRender,1000);
+
+    if( count <= questionTime ){
+        counterRender.innerHTML = count;
+        timeGauge.style.width = guageProgressUnit * count + "px";
+        count++;
+    }else{
+        count = 0;
+        answerIsWrong();
+        if( runningQuestionIndex < lastQuestionIndex){
+            runningQuestionIndex++;
+            questionRender();
+        }else{
+            clearInterval(TIMER);
+            scoreRender();
+        }
+    }
+}
+
+//Check Answer
+
+function checkAnswer(answer){
+    if(question[runningQuestionIndex].correct == answer){
+        score++;
+        answerIsCorrect();
+    }else{
+        answerIsCorrect();
+    }
+    if(runningQuestionIndex < lastQuestionIndex){
+        count = 0;
+        runningQuestionIndex++;
+        questionRender();
+    }else{
+        clearInterval(TIMER);
+        scoreRender();
+    }
+}
