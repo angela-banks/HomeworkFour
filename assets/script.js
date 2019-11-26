@@ -62,7 +62,6 @@ function renderCounter(){
         timeGauge.style.width = count * gaugeUnit + "px";
         count++
     }else{
-        count = 0;
         //progress color
         answerIsWrong();
         if(runningQuestion < lastQuestion){
@@ -119,30 +118,34 @@ function scoreRender(){
     //scoreDiv.innerHTML = "";
 let text = ["Pretty Smooth" , "Eh You Can Do Better" , "Do you listen to GOOD Music" , "Keep Your Head Up"]
 let textContent;
-    if (scorePerCent >= 80){
+
+//Form for Initials 
+let here = document.getElementById("formIt");
+
+console.log(scorePerCent)
+    if (scorePerCent >= 80) {
         textContent = text[0];
-    } else {
-        scorePerCent >= 60;
+    } else if (scorePerCent >= 60 && scorePerCent < 80) {
         textContent = text[1];
-    } 
-    
-    if (scorePerCent >= 40){
+    } else if (scorePerCent >= 40 && scorePerCent < 60) {
         textContent = text[2];
      } else {
-        scorePerCent >= 20;
         textContent = text[3];
     }
 
         //scoreDiv.innerHTML = text.textContent + ">";
-        scoreDiv.innerHTML += "<p>" + textContent + " " + scorePerCent + "%</p>";
+        scoreDiv.innerHTML += "<p>" + textContent + " " + here + " " + scorePerCent + "%</p>";
         scoreDiv.style.display = "block";
-        var name = "score"
+        //let name = "score"
         //scoreDiv.innerHTML = textContent
         //return text + scoreDiv.innerHTML; 
          //return text.textContent;
          console.log(text);
+
          //Local Storage
-         localStorage.getItem("Score" , scorePerCent)
+         localStorage.getItem("Score" , scorePerCent);
+         localStorage.getItem("Initials" , here , sub);
+         localStorage.setItem("Logged" , here , sub);
          localStorage.setItem("High Score" , scorePerCent);
 
 }
