@@ -127,8 +127,9 @@ body{
 #scoreContainer p{
     position: absolute;
     display: block;
-    width : 59px;
     height :59px;
+    margin: auto;
+    padding: 2px;
     top:130px;
     left:325px;
     font-size: 1.5em;

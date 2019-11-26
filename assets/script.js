@@ -16,7 +16,7 @@ let scoreDiv = document.getElementById("scoreContainer");
 let lastQuestion = questions.length - 1;
 let runningQuestion = 0;
 let count = 0;
-let questionTime = 15; //10s
+let questionTime = 20; //10s
 let gaugeWidth = 150; // 150px;
 let gaugeUnit = gaugeWidth / questionTime;
 let TIMER;
@@ -84,10 +84,10 @@ function checkAnswer(answer){
         score++;
         answerIsCorrecrt();
     }else{
+        count = count + 5;
         //answer is wrong
         answerIsWrong();
     }
-    count = 0;
     if(runningQuestion < lastQuestion){
         runningQuestion++;
         renderQuestion();
@@ -105,15 +105,51 @@ function answerIsCorrecrt(){
 
 //prgress bar red
 function answerIsWrong(){
-    document.getElementById(runningQuestion).style.backgroundcolor = "#f00";
+    document.getElementById(runningQuestion).style.backgroundColor = "#f00";
 }
 
 //score Render
 function scoreRender(){
-    scoreDiv.style.display = "block";
+   
+    
 
     //calculate %
     let scorePerCent = Math.round(100 * score/questions.length);
 
     //scoreDiv.innerHTML = "";
+let text = ["Pretty Smooth" , "Eh You Can Do Better" , "Do you listen to GOOD Music" , "Keep Your Head Up"]
+let textContent;
+    if (scorePerCent >= 80){
+        textContent = text[0];
+    } else {
+        scorePerCent >= 60;
+        textContent = text[1];
+    } 
+    
+    if (scorePerCent >= 40){
+        textContent = text[2];
+     } else {
+        scorePerCent >= 20;
+        textContent = text[3];
+    }
+
+        //scoreDiv.innerHTML = text.textContent + ">";
+        scoreDiv.innerHTML += "<p>" + textContent + " " + scorePerCent + "%</p>";
+        scoreDiv.style.display = "block";
+        var name = "score"
+        //scoreDiv.innerHTML = textContent
+        //return text + scoreDiv.innerHTML; 
+         //return text.textContent;
+         console.log(text);
+         //Local Storage
+         localStorage.getItem("Score" , scorePerCent)
+         localStorage.setItem("High Score" , scorePerCent);
+
 }
+
+//LOCAL STORAGE
+
+//let message = (scorePerCent >= 80) ? "Pretty Smooth" :
+//(scorePerCent >= 60) ? "Eh You Can Do Better" :
+//(scorePerCent >= 40) ? "Do you listen to GOOD Music?" :
+//(scorePerCent >= 20) ? "Keep Your Head Up Bro!" :

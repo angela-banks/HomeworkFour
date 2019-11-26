@@ -1,4 +1,3 @@
-//log questions in "inspect" - key/source
 let questions = [
     {
         question : "What is J. Cole's real name?",
